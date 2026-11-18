@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#101827">
+  <meta name="description" content="A parent-approved 10-hour app removal commitment timer.">
+  <title>AppLock 10H</title>
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <main class="shell">
+    <header class="top">
+      <div class="mark">10H</div>
+      <div>
+        <h1>AppLock 10H</h1>
+        <p class="muted">A 10-hour commitment system</p>
+      </div>
+      <span class="status" id="status">Ready</span>
+    </header>
+
+    <section class="panel">
+      <h2>Protected app commitment</h2>
+      <p class="muted">Enter the name of the app you are committing to keep installed.</p>
+      <label for="appName">App name</label>
+      <input id="appName" maxlength="60" placeholder="e.g. Study app">
+      <div class="row">
+        <button class="primary" id="saveApp">Save app</button>
+        <button class="secondary" id="requestBtn">Request removal</button>
+      </div>
+      <p class="hint" id="appMessage" aria-live="polite">No app selected yet.</p>
+    </section>
+
+    <section class="panel timer-panel">
+      <div class="section-head">
+        <h2>Waiting period</h2>
+        <span class="pill" id="timerState">No request</span>
+      </div>
+      <div class="clock" id="clock">10:00:00</div>
+      <p class="muted center" id="timerMessage">A 10-hour wait begins when you request removal.</p>
+      <div class="progress"><div id="progressBar"></div></div>
+      <div class="row">
+        <button class="secondary" id="parentBtn">Parent approval</button>
+        <button class="secondary" id="cancelBtn">Cancel request</button>
+      </div>
+    </section>
+
+    <section class="panel">
+      <h2>Parent setup</h2>
+      <p class="muted">A parent should create and keep this PIN private. It is separate from your Chromebook password.</p>
+      <label for="newPin">Create / change parent PIN (6+ digits)</label>
+      <input id="newPin" type="password" inputmode="numeric" autocomplete="new-password" maxlength="32" placeholder="Parent enters a new PIN">
+      <label for="confirmPin">Confirm parent PIN</label>
+      <input id="confirmPin" type="password" inputmode="numeric" autocomplete="new-password" maxlength="32" placeholder="Enter it again">
+      <button class="primary full" id="setPinBtn">Set parent PIN</button>
+      <p class="hint" id="pinMessage" aria-live="polite">No parent PIN configured.</p>
+    </section>
+
+    <section class="panel">
+      <div class="section-head">
+        <h2>Activity history</h2>
+        <button class="text-btn" id="exportBtn">Export</button>
+      </div>
+      <ul id="history" class="history"><li class="muted">No activity yet.</li></ul>
+    </section>
+
+    <footer>
+      <p>AppLock 10H is a reminder and approval workflow. It does not control Android or ChromeOS uninstall permissions.</p>
+      <p>Keep your Chromebook clock accurate. Clearing this site's data can reset local records.</p>
+    </footer>
+  </main>
+
+  <dialog id="approvalDialog">
+    <form method="dialog" id="approvalForm">
+      <h2>Parent approval</h2>
+      <p class="muted" id="approvalInfo">The waiting period must finish before approval.</p>
+      <label for="approvalPin">Parent PIN</label>
+      <input id="approvalPin" type="password" inputmode="numeric" autocomplete="current-password" placeholder="Parent enters PIN">
+      <p class="hint" id="approvalMessage" aria-live="polite"></p>
+      <div class="row">
+        <button class="secondary" value="close">Close</button>
+        <button class="primary" type="button" id="approveBtn">Approve request</button>
+      </div>
+    </form>
+  </dialog>
+
+  <script src="app.js"></script>
+</body>
+</html>
